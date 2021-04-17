@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  gocqhttp:
+    container_name: gocqhttp
+    environment:
+      - TZ=Asia/Singapore
+    tty: true
+    stdin_open: true
+    restart: always
+    volumes:
+      - /cqhttp/:/usr/src/app
+    build:
+      context: ./go_cqhttp
+
+  question:
+    container_name: question
+    environment:
+      - TZ=Asia/Singapore
+    ports:
+      - 5201:5201
+    build:
+      context: .
+
+networks:
+  default:
+    name: question-default
